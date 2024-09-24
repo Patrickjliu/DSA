@@ -1,5 +1,5 @@
 
-import org.w3c.dom.Node;
+import java.util.ArrayList;
 
 // Linked Lists are our first node based data structure and the first one we will be making ourselves.
 
@@ -88,17 +88,113 @@ public class LinkedList {
         }
     }
 
-    public void toString() {
+    public int popFront() {
+        if (start == null) {
+            return -1;
+        } else {
+            int value = start.value;
+            start = start.next_node;
+            start.setPrevious(null);
+            return value;
+        }
+    }
+
+    public int popEnd() {
+        if (end == null) {
+            return -1;
+        } else {
+            int value = end.value;
+            end = end.getPrevious();
+            if (end != null) {
+                end.setNext(null);
+            } else {
+                start = null;
+            }
+            return value;
+        }
+    }
+    
+    public int delete(int index) {
+        if (start == null) {
+            return -1;
+        }
+    
+        Node current = start;
+        for (int i = 0; i < index && current != null; i++) {
+            current = current.getNext();
+        }
+    
+        if (current == null) {
+            return -1;
+        }
+    
+        int value = current.value;
+    
+        if (current.getPrevious() != null) {
+            current.getPrevious().setNext(current.getNext());
+        } else {
+            start = current.getNext();
+        }
+    
+        if (current.getNext() != null) {
+            current.getNext().setPrevious(current.getPrevious());
+        } else {
+            end = current.getPrevious();
+        }
+    
+        return value;
+    }
+    
+    public int get(int index) {
+        Node current = start;
+        for (int i = 0; i < index && current != null; i++) {
+            current = current.getNext();
+        }
+        if (current == null) {
+            return -1;
+        }
+        return current.value;
+    }
+    
+    public int find(int v) {
+        Node current = start;
+        int index = 0;
+        while (current != null) {
+            if (current.value == v) {
+                return index;
+            }
+            current = current.getNext();
+            index++;
+        }
+        return -1;
+    }
+
+    public ArrayList toArray() {
+
+        Node current = start;
+        ArrayList<Integer> arraylist = new ArrayList<Integer>();
+        while (current != null) {
+            arraylist.add(current.value);
+            current = current.next_node;
+        }
+
+        return arraylist;
+    }
+
+    @Override
+    public String toString() {
 
         Node current = start;
 
         while (current != null) {
-            System.out.print("current.value");
-            if (current.next_node != null) {
+            System.out.print(current.value);
+            if (current.getNext() != null) {
                 System.out.print(" <-> ");
             }
             current = current.next_node;
         }
+
+        return "";
     }
 }
 
