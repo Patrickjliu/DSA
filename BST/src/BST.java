@@ -5,7 +5,7 @@ class Node {
     int value;
     Node left, right;
 
-    
+
     public Node(int value) {
         this.value = value;
         left = right = null;
@@ -47,7 +47,8 @@ public class BST {
     private Node insertRec(Node node, int value) {
 
         if (node == null) {
-            return new Node(value);
+            Node root = new Node(value);
+            return root;
         }
 
         if (value < node.value) {
@@ -145,18 +146,21 @@ public class BST {
     public static void main(String[] args) {
 
         BST bst = new BST();
+
         bst.insert(12);
         bst.insert(22);
         bst.insert(2);
         bst.insert(12);
         System.out.println(bst.find(12));
         System.out.println(bst.find(20));
+
         int[] inOrderArray = bst.toArray();
-        System.out.print("In-order: ");
+        System.out.print("Array In-order: ");
         for (int i : inOrderArray) {
             System.out.print(i + " ");
         }
-        System.out.println();
+
+        
         bst.delete(10);
         int[] afterDeleteArray = bst.toArray();
         for (int i : afterDeleteArray) {
