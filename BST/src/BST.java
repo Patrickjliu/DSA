@@ -147,24 +147,25 @@ public class BST {
 
         BST bst = new BST();
 
-        bst.insert(12);
-        bst.insert(22);
-        bst.insert(2);
-        bst.insert(12);
-        System.out.println(bst.find(12));
-        System.out.println(bst.find(20));
+    //     bst.insert(12);
+    //     bst.insert(22);
+    //     bst.insert(2);
+    //     bst.insert(12);
+    //     System.out.println(bst.find(12));
+    //     System.out.println(bst.find(20));
 
-        int[] inOrderArray = bst.toArray();
-        System.out.print("Array In-order: ");
-        for (int i : inOrderArray) {
-            System.out.print(i + " ");
-        }
+    //     int[] inOrderArray = bst.toArray();
+    //     System.out.print("Array In-order: ");
+    //     for (int i : inOrderArray) {
+    //         System.out.print(i + " ");
+    //     }
 
         
-        bst.delete(10);
-        int[] afterDeleteArray = bst.toArray();
-        for (int i : afterDeleteArray) {
-            System.out.print(i + " ");
-        }
+    //     bst.delete(10);
+    //     int[] afterDeleteArray = bst.toArray();
+    //     for (int i : afterDeleteArray) {
+    //         System.out.print(i + " ");
+    //     }
+    // }
     }
 }
