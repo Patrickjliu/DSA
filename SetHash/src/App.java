@@ -49,7 +49,8 @@ public class App {
 
         // Test frequencySort
         int[] arr4 = {2, 5, 2, 8, 5, 6, 8, 8};
-        System.out.println(Arrays.toString(app.frequencySort(arr4)));
+        int[] arr10 = {5, 2, 2, 8, 5, 6, 8, 8};
+        System.out.println(Arrays.toString(app.frequencySort(arr10)));
 
         // Test twoSum
         int[] arr5 = {2, 7, 11, 15};
@@ -61,24 +62,27 @@ public class App {
         System.out.println(Arrays.toString(app.twoSum(arr6, target2)));
     }
     
-    public int mostFrequent(int[] arr) throws Exception {
-
-        HashMap<Integer, Integer> hashTable = new HashMap<>();
-
-        for (int i = 0; i < arr.length; i++) {
-            hashTable.put(arr[i], 1 + hashTable.getOrDefault(arr[i], 0));
+    public int[] mostFrequent(int[] nums) {
+        HashMap<Integer,Integer>map=new HashMap<>();
+        int n=nums.length;
+        for(int i:nums){
+            map.put(i,map.getOrDefault(i,0)+1);
         }
-
-        int mostFrequent = -1;
-        int count = 0;
-        for (int num : hashTable.keySet()){
-            if (hashTable.get(num) > count){
-                count = hashTable.get(num);
-                mostFrequent = num;
+        Integer temp[]=new Integer[n];
+        for(int i=0;i<n;i++){
+            temp[i]=nums[i];
+        }
+        Arrays.sort(temp, new Comparator<Integer>(){
+            public int compare(Integer a,Integer b){
+                if(map.get(a)==map.get(b)){
+                    return b-a;
+                }return map.get(a)-map.get(b);
             }
+        });
+         for(int i=0;i<n;i++){
+            nums[i]=temp[i];
         }
-
-        return mostFrequent;
+       return nums;
     }
 
     public boolean duplicates(int[] arr) throws Exception {
@@ -108,31 +112,34 @@ public class App {
         return true;
     }
 
-    public int[] frequencySort(int[] arr) throws Exception {
-
-        HashMap<Integer, Integer> hashTable = new HashMap<>();
+    public static int[] frequencySort(int[] arr) {
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        Map<Integer, Integer> fom = new HashMap<>();
 
         for (int i = 0; i < arr.length; i++) {
-            hashTable.put(arr[i], 1 + hashTable.getOrDefault(arr[i], 0));
+            int num = arr[i];
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+            fom.putIfAbsent(num, i);
         }
 
-        List<Integer> returnArray = new ArrayList<Integer>();
-        for (int num : arr){
-            returnArray.add(num);
+        List<Integer> list = new ArrayList<>();
+        for (int num : arr) {
+            list.add(num);
         }
 
-        returnArray.sort((a, b) -> {
-            int freqA = hashTable.get(a);
-            int freqB = hashTable.get(b);
-    
+        list.sort((a, b) -> {
+            int freqA = frequencyMap.get(a);
+            int freqB = frequencyMap.get(b);
+
             if (freqA != freqB) {
-                return Integer.compare(freqB, freqA);
+                return freqB - freqA;
+            } 
+            else {
+                return fom.get(a) - fom.get(b);
             }
-    
-            return Integer.compare(a, b);
         });
-    
-        return returnArray.stream().mapToInt(i -> i).toArray();
+
+        return list.stream().mapToInt(i -> i).toArray();
     }
 
     public int[] twoSum(int[] arr, int target) throws Exception {

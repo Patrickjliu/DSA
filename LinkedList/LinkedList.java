@@ -92,28 +92,39 @@ public class LinkedList {
     public int popFront() {
         if (start == null) {
             return -1;
-        } else {
-            int value = start.value;
-            start = start.next_node;
-            start.setPrevious(null);
-            return value;
         }
+    
+        int value = start.value;
+    
+        if (start == end) {
+            start = null;
+            end = null;
+        } else {
+            start = start.getNext();
+            start.setPrevious(null);
+        }
+    
+        return value;
     }
-
+    
     public int popEnd() {
         if (end == null) {
             return -1;
-        } else {
-            int value = end.value;
-            end = end.getPrevious();
-            if (end != null) {
-                end.setNext(null);
-            } else {
-                start = null;
-            }
-            return value;
         }
-    }
+    
+        int value = end.value;
+    
+        if (start == end) {
+            start = null;
+            end = null;
+        } else {
+            end = end.getPrevious();
+            end.setNext(null);
+        }
+    
+        return value;
+    }    
+    
     
     public int delete(int index) {
         if (start == null) {
